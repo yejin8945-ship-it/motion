@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>3년 뒤 베이커리 출점 전략 2분 발표</title>
+<style>
+:root{--p:#6d28d9;--p2:#8b5cf6;--pd:#4c1d95;--pl:#f3edff;--ink:#1c1530;--soft:#6b6483;--line:#e6dff7;--bg:#f7f4fc;--card:#fff;--ok:#16a34a;--bad:#dc2626;--warn:#d97706}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Pretendard","Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.55}
+.wrap{max-width:1100px;margin:0 auto;padding:18px 16px 60px}
+h1.pt{font-size:clamp(20px,3.2vw,30px);margin:6px 0 4px;letter-spacing:-.5px}
+p.sub{margin:0 0 12px;color:var(--soft);font-size:14px}
+#player{position:relative;width:100%;aspect-ratio:16/9;border-radius:18px;overflow:hidden;background:#fff;box-shadow:0 24px 60px -30px rgba(76,29,149,.55);border:1px solid var(--line)}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;background:linear-gradient(135deg,#fff 0%,#faf7ff 60%,#efe6ff 100%);overflow:hidden}
+.top{position:absolute;left:0;right:0;top:0;height:96px;display:flex;align-items:center;gap:14px;padding:0 64px}
+.step{display:flex;align-items:center;gap:10px;font-size:26px;font-weight:700;color:#b3a9cc;transition:.4s}
+.step i{font-style:normal;display:inline-grid;place-items:center;width:42px;height:42px;border-radius:50%;border:2px solid currentColor;font-size:20px}
+.step.act{color:var(--p)}
+.step.act i{background:var(--p);color:#fff;border-color:var(--p)}
+.arrow{color:#cfc6e6;font-size:26px}
+.bar{position:absolute;left:0;top:92px;height:4px;background:var(--p2);width:0;transition:width .3s linear}
+.title{position:absolute;left:64px;top:120px;font-size:62px;font-weight:900;letter-spacing:-2px;color:var(--ink)}
+.title b{color:var(--p)}
+.sub2{position:absolute;left:66px;top:200px;font-size:28px;color:var(--soft)}
+.scene{position:absolute;left:0;top:0;width:1920px;height:1080px;opacity:0;pointer-events:none;transition:opacity .5s}
+.scene.on{opacity:1}
+.cap{position:absolute;left:0;right:0;bottom:0;height:132px;background:linear-gradient(0deg,rgba(28,21,48,.92),rgba(28,21,48,.8));color:#fff;display:flex;align-items:center;justify-content:center;padding:0 60px;font-size:29px;font-weight:600;text-align:center;line-height:1.3;z-index:50}
+.cap.off{display:none}
+.src{position:absolute;left:64px;bottom:136px;font-size:20px;color:var(--soft)}
+.rv{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.rv.on{opacity:1;transform:none}
+.card{background:var(--card);border:2px solid var(--line);border-radius:28px;box-shadow:0 18px 40px -26px rgba(76,29,149,.5)}
+.pcard{background:linear-gradient(145deg,var(--pd),var(--p) 60%,var(--p2));color:#fff;border-radius:34px;box-shadow:0 30px 60px -30px rgba(76,29,149,.8)}
+.chip{display:inline-block;font-size:22px;font-weight:700;color:var(--p);background:var(--pl);border-radius:999px;padding:4px 18px}
+.big{font-size:84px;font-weight:900;letter-spacing:-3px}
+.lab{font-size:24px;color:var(--soft)}
+.ln{fill:none;stroke:var(--p);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.scene.on .ln{animation:draw 2.4s ease forwards;animation-delay:calc(var(--i)*60ms + .4s)}
+@keyframes draw{to{stroke-dashoffset:0}}
+.tag{font-size:20px;font-weight:700;border-radius:8px;padding:2px 10px}
+.tag.g{background:#ececf1;color:#6b6483}.tag.p{background:var(--p);color:#fff}.tag.r{background:#fee2e2;color:#b91c1c}.tag.o{background:#fef3c7;color:#92400e}
+/* funnel */
+.fun{position:absolute;left:64px;top:300px;width:1400px}
+.fun .row{display:flex;align-items:center;gap:26px;margin-bottom:26px}
+.fun .b{flex:none;height:96px;border-radius:20px;background:linear-gradient(90deg,var(--p),var(--p2));color:#fff;display:flex;align-items:center;padding-left:30px;font-size:46px;font-weight:900;width:0;transition:width 1.1s cubic-bezier(.2,.8,.2,1);white-space:nowrap;overflow:hidden}
+.fun .t{font-size:28px;font-weight:600;max-width:560px}
+/* table rows */
+.cand{position:absolute;left:64px;top:270px;width:1090px}
+.cand .r{display:flex;align-items:center;justify-content:space-between;background:#fff;border:2px solid var(--line);border-radius:20px;padding:12px 26px;margin-bottom:12px;font-size:28px}
+.cand .r.hl{border-color:var(--p);background:var(--pl);font-weight:800;box-shadow:0 14px 30px -20px rgba(109,40,217,.8)}
+.cand .r b{font-size:30px}
+.tl{position:absolute;left:1200px;top:270px;width:660px;height:600px}
+/* kpi */
+.kpi{position:absolute;display:flex;flex-direction:column;justify-content:center;padding:26px 34px;width:420px;height:210px}
+.kpi .v{font-size:78px;font-weight:900;letter-spacing:-3px;line-height:1}
+.kpi .d{font-size:26px;margin-top:8px}
+.up{color:var(--ok)}.dn{color:var(--bad)}
+.plan{position:absolute;left:64px;top:270px;width:1000px;height:640px}
+.maps{position:absolute;left:1120px;top:270px;width:740px}
+.maps .m{background:#fff;border:2px solid var(--line);border-radius:24px;padding:18px 24px;margin-bottom:18px;font-size:27px}
+.maps .m b{color:var(--p);font-size:30px;display:block}
+.concl li{font-size:34px;margin:16px 0;font-weight:600}
+.trig{display:flex;gap:22px}
+.trig .t{flex:1;background:#fff;border:2px solid var(--line);border-radius:22px;padding:20px 24px;font-size:28px}
+.trig .t b{display:block;font-size:34px;color:var(--p)}
+/* controls */
+.ctl{display:flex;align-items:center;gap:10px;margin:12px 0 4px;flex-wrap:wrap}
+.ctl button{font:inherit;font-size:15px;border:1.5px solid var(--p);background:#fff;color:var(--ink);border-radius:999px;padding:7px 16px;cursor:pointer}
+.ctl button.main{background:var(--p);color:#fff}
+.ctl button:hover{background:var(--p2);color:#fff}
+#seek{flex:1;min-width:200px;height:10px;border-radius:99px;background:var(--line);cursor:pointer;position:relative}
+#seek i{position:absolute;left:0;top:0;bottom:0;border-radius:99px;background:var(--p);width:0}
+#tm{font-variant-numeric:tabular-nums;color:var(--soft);font-size:14px}
+#ov{position:absolute;inset:0;z-index:100;background:rgba(28,21,48,.55);display:grid;place-items:center;cursor:pointer}
+#ov span{background:#fff;color:var(--p);font-weight:900;font-size:clamp(18px,3vw,34px);padding:18px 36px;border-radius:999px;box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.scn{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 18px}
+.scn button{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;color:var(--soft);border-radius:8px;padding:4px 10px;cursor:pointer}
+.scn button.act{border-color:var(--p);color:var(--p);font-weight:700}
+section.doc{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 22px;margin:18px 0}
+section.doc h2{margin:0 0 8px;font-size:20px;color:var(--pd)}
+section.doc table{border-collapse:collapse;width:100%;font-size:14px}
+section.doc th,section.doc td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+section.doc th{color:var(--soft);font-weight:600}
+.k{display:inline-block;font-size:12px;font-weight:700;border-radius:6px;padding:1px 7px}
+.k.c{background:#dcfce7;color:#166534}.k.d{background:#dbeafe;color:#1e40af}.k.a{background:#fef3c7;color:#92400e}
+section.doc ul{margin:6px 0;padding-left:20px;font-size:14px}
+section.doc a{color:var(--p)}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.phi{width:100%;height:100%;object-fit:cover;display:block;background:#e9defb}
+.phx{width:100%;height:100%;background:linear-gradient(135deg,#ddd0f7,#f3edff)}
+.ph{position:relative;overflow:hidden;border-radius:28px;box-shadow:0 26px 50px -30px rgba(40,20,90,.7)}
+.ph .lbl{position:absolute;left:0;right:0;bottom:0;padding:70px 26px 18px;background:linear-gradient(0deg,rgba(28,21,48,.9),rgba(28,21,48,0));color:#fff;font-size:27px;font-weight:700;line-height:1.3}
+.ph .lbl small{display:block;font-size:21px;font-weight:500;opacity:.9;margin-top:4px}
+.ph .cr2{position:absolute;right:12px;top:10px;font-size:14px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.9);opacity:.8}
+.mood{position:absolute;right:64px;top:128px;font-size:22px;font-weight:700;color:#92400e;background:#fef3c7;border-radius:999px;padding:6px 20px;z-index:5}
+.pct{position:absolute;left:16px;top:14px;font-size:44px;font-weight:900;color:#fff;background:rgba(76,29,149,.88);border-radius:16px;padding:2px 16px;letter-spacing:-1px}
+.mt{background:#fff;border:2px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 20px 40px -28px rgba(76,29,149,.6)}
+.mt .tx{padding:14px 18px 16px}
+.mt .tx b{font-size:29px;display:block;letter-spacing:-1px}
+.mt .tx span{font-size:21px;color:var(--soft);line-height:1.35;display:block;margin-top:2px}
+.sbar{display:flex;height:60px;border-radius:18px;overflow:hidden;box-shadow:0 14px 30px -22px rgba(76,29,149,.7)}
+.sbar div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:800;white-space:nowrap}
+.planmini{width:100%;height:auto;display:block}
+@media (prefers-reduced-motion:reduce){.scene.on .ln{animation:none;stroke-dashoffset:0}.rv{transition:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 class="pt">3년 뒤 베이커리 출점 전략 · 2분 발표</h1>
+<p class="sub">사모펀드 보유 커피·베이커리 전문점 · 2029년 서울 출점 제안 · 소리를 켜고 재생해 주세요</p>
+<div id="player">
+  <div id="stage"></div>
+  <div id="ov"><span>▶ 재생 (소리가 나와요)</span></div>
+</div>
+<div class="ctl">
+  <button class="main" id="bPlay">▶ 재생</button>
+  <div id="seek"><i></i></div>
+  <span id="tm">0:00 / 2:00</span>
+  <button id="bCap">자막 끄기</button>
+  <button id="bFs">전체 화면</button>
+</div>
+<div class="scn" id="scn"></div>
+
+<section class="doc" id="summary"></section>
+<section class="doc" id="appendix"></section>
+</div>
+<script>
+const AUDIO={"S0": "audio/S0.wav", "S1a": "audio/S1a.wav", "S1b": "audio/S1b.wav", "S1c": "audio/S1c.wav", "S2": "audio/S2.wav", "S3": "audio/S3.wav", "S4a": "audio/S4a.wav", "S4b": "audio/S4b.wav", "S5": "audio/S5.wav"};
+const D={"scenes": [{"id": "S0", "dur": 8.69, "text": "사모펀드 보유 커피·베이커리 전문점의, 3년 뒤 출점 전략입니다. 입지, 인테리어, 메뉴, 손익 순서로 제안합니다.", "step": -1}, {"id": "S1a", "dur": 9.87, "text": "먼저 입지입니다. 서울 상권 1,650곳을 분석해, 제과점 5곳 이상에 분기 매출 5억 원 이상, 유동인구가 늘어난 상권 19곳을 추렸습니다.", "step": 0}, {"id": "S1b", "dur": 18.9, "text": "과거 성장이 미래를 보장하진 않아서 2029년 이전 호재를 봤습니다. 성수와 용산은 효과가 2029년 이후이고, 마곡과 청량리는 이미 반영됐습니다. 창동은 서울아레나 2027년, 동북선 2027년 말, 광운대 역세권 2028년이 목표입니다. 모두 지연 위험이 있습니다.", "step": 0}, {"id": "S1c", "dur": 11.3, "text": "최종 입지는 창동역 상권입니다. 제과점은 두 곳뿐인데 분기 제과 매출이 7.7억 원으로 2년간 30퍼센트 늘었습니다. 다만 상권축소 지표와 커피 매출 감소가 위험입니다.", "step": 0}, {"id": "S2", "dur": 14.51, "text": "인테리어는 동네 오븐입니다. 제과 매출은 50대 이상이 51퍼센트, 저녁 5시에서 9시가 36퍼센트입니다. 그래서 편안한 좌석, 오픈 베이킹 키친, 퇴근길과 공연 전 픽업 카운터로 25평을 설계했습니다.", "step": 1}, {"id": "S3", "dur": 14.88, "text": "메뉴는 낮엔 식사빵과 건강빵, 저녁엔 구움과자와 선물 세트를 키웁니다. 비중은 식사빵 29, 구움과자 22, 케이크 12, 샌드위치 8, 음료 29퍼센트이고, 객단가는 약 1만 1천 원을 목표로 합니다.", "step": 2}, {"id": "S4a", "dur": 15.64, "text": "손익은 2029년 개점 2년 차 기준입니다. 상권 매출에 연 5퍼센트 성장과 점유율을 가정해 매출 6.3억 원, 재료비 35퍼센트, 인건비 1.9억, 임대료 0.6억을 반영하면 영업이익은 0.5억 원, 8.4퍼센트입니다.", "step": 3}, {"id": "S4b", "dur": 10.87, "text": "손익분기 매출은 5.4억 원, 안전 마진은 14퍼센트뿐이고 보수 시나리오는 0.8억 원 적자입니다. 낙관은 1.4억 원 이익, 투자 회수는 약 2.2년입니다.", "step": 3}, {"id": "S5", "dur": 11.68, "text": "결론입니다. 창동역은 호재가 현실이 될 때 수익이 나는 선점형 입지입니다. 서울아레나와 동북선 일정을 확인한 뒤 계약하는 조건부 출점을 제안합니다. 출처와 가정은 부록에 있습니다.", "step": -1}], "site": {"name": "창동역 상권", "code": "3120079", "kind": "발달상권", "ix": "상권축소", "flow26": 422390.0, "flow24": 402169.0, "bak26": 765698620.0, "bak24": 589692293.0, "cof26": 455082875.0, "cof24": 616417021.0, "bak_stores": 2.0, "cof_stores": 6.0, "bak_cnt": 76216.0, "ticket": 10046.428833840664}, "scen": [{"name": "기본", "rev": 6.252290824887501, "rev_b": 4.431959324887501, "rev_c": 1.8203315, "cogs": 2.1883017887106253, "labor": 1.90276666873065, "rent": 0.612, "card": 0.10003665319820002, "mkt": 0.12504581649775, "util": 0.3, "other": 0.1, "dep": 0.4, "cost": 5.728150927137225, "op": 0.5241398977502758, "opm": 0.08383165665677536, "bep": 5.398642782948941, "safety": 0.1365336427634778, "payback": 2.164174498762358}, {"name": "보수", "rev": 4.2879643909235, "rev_b": 3.0137323409235006, "rev_c": 1.2742320500000002, "cogs": 1.62942646855093, "labor": 1.90276666873065, "rent": 0.612, "card": 0.068607430254776, "mkt": 0.08575928781847, "util": 0.3, "other": 0.1, "dep": 0.4, "cost": 5.098559855354826, "op": -0.8105954644313256, "opm": -0.18903969122205033, "bep": 5.675970323168921, "safety": -0.32369810140762056, "payback": null}, {"name": "낙관", "rev": 8.039338885856, "rev_b": 5.672907935856001, "rev_c": 2.3664309500000003, "cogs": 2.7333752211910407, "labor": 2.2198456994089497, "rent": 0.612, "card": 0.12862942217369602, "mkt": 0.16078677771712002, "util": 0.3, "other": 0.1, "dep": 0.4, "cost": 6.654637120490807, "op": 1.384701765365194, "opm": 0.17224075076638043, "bep": 5.8202655439246, "safety": 0.27602684417689183, "payback": 1.12063541304939}], "bak_mkt26": 30.6279448, "cof_mkt26": 18.203315, "bak_mkt29": 35.45567459910001, "cof_mkt29": 18.203315, "menu": [{"k": "meal_bread", "n": "식사빵·기본빵", "p": 29, "c": "#6d28d9", "d": "식빵·소금빵·크루아상(전국 판매 상위) + 통밀·호밀 건강빵 라인"}, {"k": "baked_sweets", "n": "구움과자·선물 세트", "p": 22, "c": "#8b5cf6", "d": "공연 전 선물·포장용 상시 라인, 유행 의존을 낮춤"}, {"k": "cake", "n": "케이크·시즌 디저트", "p": 12, "c": "#c4b5fd", "d": "조각케이크·타르트, 시즌 한정"}, {"k": "sandwich", "n": "샌드위치·간편식", "p": 8, "c": "#e9d5ff", "d": "저녁 퇴근길용, 전국 판매 비중 15%라 확대 여지"}, {"k": "drink", "n": "음료", "p": 29, "c": "#f59e0b", "d": "커피·티, 상권 커피 매출이 줄어 보수적으로 접근"}], "assump": [["확인", "2027년 최저임금", "시급 10,700원 (월 환산 2,236,300원)", "2026.7.14 의결·8.5 고시 (택스넷 등)"], ["확인", "외식업 영업이익률 (참고)", "8.7% (2024년)", "농식품부 2025 외식업체 경영실태조사 · 제과점 단독 아님"], ["확인", "제과점 연평균 매출 (참고)", "2억 5,843만원 (2024년)", "농식품부 표본 평균 · 서울 신규 매장 기준 아님"], ["확인", "서울 가맹점 평균 창업비용 (참고)", "1억 1,350만원, 인테리어 48%", "서울시 2025 가맹사업 등록현황 · 보증금 제외"], ["확인", "전국 소규모 상가 월 임대료 (참고)", "20,600원/㎡ (2026.2Q)", "한국부동산원 · 전국 평균, 서울 단독 금액은 못 찾음"], ["확인", "베이커리·제과점 월평균 매출 (위험 근거)", "약 907만원, 적자 전환 (2025.6)", "캐시노트 데이터 · 언론 보도(위키트리)"], ["데이터", "창동역 상권 제과 분기 매출", "7.66억원 (24.2Q 5.90억, +30%)", "서울열린데이터광장 추정매출, 제과점 2곳"], ["데이터", "창동역 상권 커피 분기 매출", "4.55억원 (24.2Q 6.16억, −26%)", "서울열린데이터광장 추정매출, 커피점 6곳"], ["데이터", "창동역 상권 유동인구·건당 제과 매출", "42.2만명 (+5.0%) · 건당 10,046원", "서울열린데이터광장 유동인구·추정매출"], ["데이터", "상권 연 환산 시장 규모", "제과 30.6억 · 음료 18.2억", "26.2Q × 4"], ["가정", "상권 매출 성장", "제과 연 +5%, 음료 0%", "최근 2년은 제과 +30%, 음료 −26%여서 보수적으로 설정"], ["가정", "점유율", "제과 12.5%, 음료 10% (보수 8.5%·7%, 낙관 16%·13%)", "제과점 2곳뿐인 상권에서 세 번째 매장을 가정"], ["가정", "재료비율", "35% (보수 38%, 낙관 34%)", "외식업 평균 식재료비 40.7%보다 낮게 잡음 · 근거 자료 없음"], ["가정", "인건비", "환산 5.5명 + 제빵사 가산 월 120만원 → 연 1.90억", "2028~29 최저임금 연 3.5% 인상, 사업주 보험 약 10.3%, 월 209시간"], ["가정", "임대료", "월세 450만 + 관리비 60만 (연 0.61억)", "83㎡ × 전국 평균 2.06만원/㎡의 약 2.6배 (서울 역세권 프리미엄 가정)"], ["가정", "기타 비용", "카드수수료 1.6%, 마케팅 2%, 광열·소모품 0.30억, 기타 0.10억", "근거 자료 없음"], ["가정", "초기 투자", "2.0억원 (인테리어·설비), 5년 감가, 보증금 별도", "서울 가맹 평균 창업비용을 참고한 직영 25평 가정"]], "evid": ["베스트셀러: 2025년 상반기 전국 약 3만 7천 사업장 POS 기준 소금빵 15.7%, 샌드위치 15.0%, 식빵 7.2%, 크루아상 5.3%, 베이글 5.2% (KCD, 위키트리 보도)", "유행의 수명: 노티드 2024년 매출 −6.7%, 랜디스도넛 1년 소셜 언급량 −57.8% (한국경제, 2025.4) → 유행 품목보다 상시 라인 비중을 높임", "건강빵: 저당·통밀·호밀 관심은 기사로만 확인(조사 주체 불명). 빵 선택 기준에서 건강·영양은 10.5%, 새로운 맛 40.6% (세계일보 인용) → 건강빵은 보조 라인으로만 설계", "공연 수요: 서울아레나는 개관 후 연 약 270만 명 방문 예상(서울시, 2027.6 개관 목표). 고양종합운동장 인근 카페는 콘서트 날 판매량이 급증한다고 보도됐으나 매출 수치는 없음 → 이벤트성 수요라 평일 낮 수요와 분리해 봄", "인스파이어 아레나 주변은 공연 전후 식음 공간이 부족하다는 우려가 보도됨(더팩트) → 인접 상권의 픽업 수요 가능성", "오픈키친 사례: 베이커베이커(강남, 149㎡, 면적의 1/3이 오픈키친), 겟브레디 베이커리(강동, 50㎡, 오픈키친) · 좌석 수와 포장 동선은 기사에 없음", "폐기(로스) 관리: 마감 할인 플랫폼과 정부 연계 마감 할인 서비스(2026.6) 보도가 있으나 할인율·폐기율 수치는 확인하지 못함 → 저녁 5~9시 판매 피크와 맞춘 2차 생산으로 설계", "확인하지 못한 것: 제과점 단독 원가율·임대료·객단가 공식 수치, 아레나 주변 매장의 공연 전후 매출, 좌석 비중, 폐기율(%)"], "srcA": [{"title": "뉴스서울: 서울아레나 공정률 81% 현장점검(2026.10)", "url": "https://newsseoul.co.kr/news/view/1065589865722666"}, {"title": "서울시의회: 동북선 건설현장 및 진접차량기지 현장방문(2026.09.07)", "url": "https://m.go.seoul.co.kr/news/2026/09/07/20260907500208"}, {"title": "서울시 미디어허브: 서울아레나·광운대 역세권 개발, 강북 활성화(2026.01.21)", "url": "https://mediahub.seoul.go.kr/archives/2016858"}, {"title": "경기신문: GTX-C 실착공(2026.09.15)", "url": "https://kgnews.co.kr/mobile/article.html?no=911759"}, {"title": "이코노미스트: 용산국제업무지구 토지공급(2026.08.27)", "url": "https://economist.co.kr/article/view/ecn202608270040"}, {"title": "한국경제: 용산정비창 입체복합 수직도시(2025.09.18)", "url": "https://www.hankyung.com/article/202509182536i"}, {"title": "이코노미스트: 청량리 초고층 브랜드타운(2026.04.07)", "url": "https://economist.co.kr/article/view/ecn202604070007"}, {"title": "트위그24(서울신문): 노원구청장 인터뷰, 광운대 역세권과 S-DBC(2026.01.06)", "url": "https://www.twig24.com/news/2026/01/06/20260106026001"}, {"title": "머니투데이: 성수 1지구, 4지구 시공사 입찰(2026.02.06)", "url": "https://www.mt.co.kr/estate/2026/02/06/2026020519520840716"}, {"title": "서울시 도시계획 소식: 마곡지구 개발 현황(2026.03)", "url": "https://news.seoul.go.kr/citybuild/archives/65286"}, {"title": "한국경제: 마곡 근무 인구 약 16만 명(2026.07)", "url": "https://www.hankyung.com/article/202607067535O"}, {"title": "머니투데이: 신안산선 공사 재개(2026.10.08)", "url": "https://www.mt.co.kr/estate/2026/10/08/2026100722544643761"}], "srcB": [{"title": "농림축산식품부 외식업 매출 2억 5천만원 시대 (2025년 외식업체 경영실태조사)", "url": "https://www.mafra.go.kr/bbs/home/792/577439/artclView.do"}, {"title": "서울시 경제분야 2025년 서울시 가맹사업 등록현황 (창업비용)", "url": "https://news.seoul.go.kr/economy/archives/573138"}, {"title": "뉴시스 한국부동산원 상업용부동산 임대동향 2025년 (2026-01 발표)", "url": "https://www.newsis.com/view/NISX20260128_0003493893"}, {"title": "뉴시스 한국부동산원 2026년 2분기 상업용부동산 임대동향", "url": "https://www.newsis.com/view/NISX20260729_0003728100"}, {"title": "택스넷 2027년 최저임금 시간급 10,700원, 월 환산액 223만 6,300원", "url": "https://www.taxnet.co.kr/contents/taxnetpost/post-detail?id=4905"}, {"title": "대륜 뉴스레터 2026년 적용 최저임금 10,320원 의결", "url": "https://www.daeryunlaw.com/newsletter/news/188"}], "srcC": [{"title": "한국경제 노티드·랜디스도넛·코끼리베이글 한산, 2025.04.29", "url": "https://www.hankyung.com/article/2025042936507"}, {"title": "위키트리 KCD 빵 판매 분석 기사", "url": "https://www.wikitree.co.kr/articles/1086918"}, {"title": "MTN 서울아레나 기대 기사, 2026.10.31", "url": "https://news.mtn.co.kr/article/2026103116263569408"}, {"title": "더팩트 K-아레나 시대 인스파이어 현장", "url": "https://news.tf.co.kr/read/ogmeta/2053698.htm"}, {"title": "다음 올해만 109억 고양종합운동장 기사, 2025.12.16", "url": "https://v.daum.net/v/20251216050303201"}, {"title": "디자인 매거진 겟브레디 베이커리, 2025.09.11", "url": "https://design.co.kr/article/130427/"}, {"title": "브리크매거진 베이커베이커", "url": "https://magazine.brique.co/project/oftn_bakerbaker/"}, {"title": "머니투데이 럭키밀 반값 빵 기사, 2026.04.01", "url": "https://www.mt.co.kr/future/2026/04/01/2026032416024093492"}, {"title": "SBS Biz 마감 할인 플랫폼 기사, 2026.06.29", "url": "https://biz.sbs.co.kr/amp/article/20000319377"}], "photos": {"meal_bread": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/ff/Sliced_loaf_of_sourdough_bread.jpg/960px-Sliced_loaf_of_sourdough_bread.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:Sliced_loaf_of_sourdough_bread.jpg", "title": "File:Sliced loaf of sourdough bread.jpg", "author": "Nutrition, Food Safety & Health", "license": "CC0", "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "alt": "잘라 놓은 천연발효 사워도우 빵 한 덩이의 단면과 슬라이스"}, "baked_sweets": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a8/Madeleine_japonaise_sans_bosse%2C_marque_Ogawaken.jpg/960px-Madeleine_japonaise_sans_bosse%2C_marque_Ogawaken.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:Madeleine_japonaise_sans_bosse,_marque_Ogawaken.jpg", "title": "File:Madeleine japonaise sans bosse, marque Ogawaken.jpg", "author": "Syced", "license": "CC0", "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "alt": "포장된 일본식 마들렌 구움과자"}, "cake": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ef/Piece_of_chocolate_cake_on_a_white_plate_decorated_with_chocolate_sauce.jpg/960px-Piece_of_chocolate_cake_on_a_white_plate_decorated_with_chocolate_sauce.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:Piece_of_chocolate_cake_on_a_white_plate_decorated_with_chocolate_sauce.jpg", "title": "File:Piece of chocolate cake on a white plate decorated with chocolate sauce.jpg", "author": "Daria Yakovleva", "license": "CC0", "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "alt": "초콜릿 소스로 장식한 하얀 접시 위의 초콜릿 케이크 한 조각"}, "sandwich": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cb/Lox_Bagel_Sandwich_with_Cream_Cheese_Schmear_Onion_Tomato.jpg/960px-Lox_Bagel_Sandwich_with_Cream_Cheese_Schmear_Onion_Tomato.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:Lox_Bagel_Sandwich_with_Cream_Cheese_Schmear_Onion_Tomato.jpg", "title": "File:Lox Bagel Sandwich with Cream Cheese Schmear Onion Tomato.jpg", "author": "LinguisticsGirl.Librarian", "license": "CC0", "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "alt": "양파 베이글에 훈제연어, 크림치즈, 적양파, 토마토를 넣은 베이글 샌드위치"}, "drink": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Caffe_Latte_at_Pulse_Cafe.jpg/960px-Caffe_Latte_at_Pulse_Cafe.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:Caffe_Latte_at_Pulse_Cafe.jpg", "title": "File:Caffe Latte at Pulse Cafe.jpg", "author": "B adger1", "license": "CC0", "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "alt": "카페에서 낸 라테 커피 한 잔"}, "open_kitchen": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9f/2014_Tresen_Brot_und_Stulle_Rindermarkthalle.jpg/960px-2014_Tresen_Brot_und_Stulle_Rindermarkthalle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:2014_Tresen_Brot_und_Stulle_Rindermarkthalle.jpg", "title": "File:2014 Tresen Brot und Stulle Rindermarkthalle.jpg", "author": "Andrea Lang", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "alt": "독일 함부르크 시장홀 안 빵집의 나무 카운터와 오븐 후드, 제빵 작업이 보이는 모습"}, "display_counter": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f3/Tous_les_Jours_-_November_2023_-_Sarah_Stierch_02.jpg/960px-Tous_les_Jours_-_November_2023_-_Sarah_Stierch_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:Tous_les_Jours_-_November_2023_-_Sarah_Stierch_02.jpg", "title": "File:Tous les Jours - November 2023 - Sarah Stierch 02.jpg", "author": "Missvain", "license": "CC BY 4.0", "licenseUrl": "https://creativecommons.org/licenses/by/4.0", "alt": "크루아상과 소보로빵, 에그타르트 등이 유리 쇼케이스에 가득 진열된 베이커리 내부(투레쥬르 인디애나폴리스 매장)."}, "seating": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2d/The_interior_of_a_Le_Pain_Quotidien_bakery-restaurant_in_Washington%2C_D.C.jpg/960px-The_interior_of_a_Le_Pain_Quotidien_bakery-restaurant_in_Washington%2C_D.C.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:The_interior_of_a_Le_Pain_Quotidien_bakery-restaurant_in_Washington,_D.C.jpg", "title": "File:The interior of a Le Pain Quotidien bakery-restaurant in Washington, D.C.jpg", "author": "Harrison Keely", "license": "CC BY 4.0", "licenseUrl": "https://creativecommons.org/licenses/by/4.0", "alt": "나무 테이블과 의자가 길게 놓인 넓은 베이커리 레스토랑 내부와 창가 자리."}, "takeaway": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/79/HK_Central_MTR_Hong_Kong_Station_shop_Eric_Kayser_Bakery_%26_Cafe_visitors_queue_November_2026_N13P_01.jpg/960px-HK_Central_MTR_Hong_Kong_Station_shop_Eric_Kayser_Bakery_%26_Cafe_visitors_queue_November_2026_N13P_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:HK_Central_MTR_Hong_Kong_Station_shop_Eric_Kayser_Bakery_%26_Cafe_visitors_queue_November_2026_N13P_01.jpg", "title": "File:HK Central MTR Hong Kong Station shop Eric Kayser Bakery & Cafe visitors queue November 2026 N13P 01.jpg", "author": "Wodwo Lee SAO CH", "license": "CC0", "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "alt": "홍콩 센트럴역 메종 카이저 베이커리 카페 매장 앞에 손님들이 줄을 서서 주문을 기다리는 모습."}, "cover_bread": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Bread_on_the_Table_%28Unsplash%29.jpg/960px-Bread_on_the_Table_%28Unsplash%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:Bread_on_the_Table_(Unsplash).jpg", "title": "File:Bread on the Table (Unsplash).jpg", "author": "Brooke Cagle", "license": "CC0", "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "alt": "테이블 위에 놓인 빵들"}, "changdong": {"url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Changdong_Station_Line_4_20240306_1.jpg/960px-Changdong_Station_Line_4_20240306_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail", "page": "https://commons.wikimedia.org/wiki/File:Changdong_Station_Line_4_20240306_1.jpg", "title": "File:Changdong Station Line 4 20240306 1.jpg", "author": "Ox1997cow", "license": "CC BY-SA 4.0", "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0", "alt": "창동역 4호선 역사의 모습"}}, "photoList": [{"label": "식사빵·기본빵", "title": "File:Sliced loaf of sourdough bread.jpg", "page": "https://commons.wikimedia.org/wiki/File:Sliced_loaf_of_sourdough_bread.jpg", "author": "Nutrition, Food Safety & Health", "license": "CC0"}, {"label": "구움과자·선물 세트", "title": "File:Madeleine japonaise sans bosse, marque Ogawaken.jpg", "page": "https://commons.wikimedia.org/wiki/File:Madeleine_japonaise_sans_bosse,_marque_Ogawaken.jpg", "author": "Syced", "license": "CC0"}, {"label": "케이크·시즌 디저트", "title": "File:Piece of chocolate cake on a white plate decorated with chocolate sauce.jpg", "page": "https://commons.wikimedia.org/wiki/File:Piece_of_chocolate_cake_on_a_white_plate_decorated_with_chocolate_sauce.jpg", "author": "Daria Yakovleva", "license": "CC0"}, {"label": "샌드위치·간편식", "title": "File:Lox Bagel Sandwich with Cream Cheese Schmear Onion Tomato.jpg", "page": "https://commons.wikimedia.org/wiki/File:Lox_Bagel_Sandwich_with_Cream_Cheese_Schmear_Onion_Tomato.jpg", "author": "LinguisticsGirl.Librarian", "license": "CC0"}, {"label": "음료", "title": "File:Caffe Latte at Pulse Cafe.jpg", "page": "https://commons.wikimedia.org/wiki/File:Caffe_Latte_at_Pulse_Cafe.jpg", "author": "B adger1", "license": "CC0"}, {"label": "오픈 키친", "title": "File:2014 Tresen Brot und Stulle Rindermarkthalle.jpg", "page": "https://commons.wikimedia.org/wiki/File:2014_Tresen_Brot_und_Stulle_Rindermarkthalle.jpg", "author": "Andrea Lang", "license": "CC BY-SA 4.0"}, {"label": "쇼케이스·카운터", "title": "File:Tous les Jours - November 2023 - Sarah Stierch 02.jpg", "page": "https://commons.wikimedia.org/wiki/File:Tous_les_Jours_-_November_2023_-_Sarah_Stierch_02.jpg", "author": "Missvain", "license": "CC BY 4.0"}, {"label": "좌석", "title": "File:The interior of a Le Pain Quotidien bakery-restaurant in Washington, D.C.jpg", "page": "https://commons.wikimedia.org/wiki/File:The_interior_of_a_Le_Pain_Quotidien_bakery-restaurant_in_Washington,_D.C.jpg", "author": "Harrison Keely", "license": "CC BY 4.0"}, {"label": "픽업·포장", "title": "File:HK Central MTR Hong Kong Station shop Eric Kayser Bakery & Cafe visitors queue November 2026 N13P 01.jpg", "page": "https://commons.wikimedia.org/wiki/File:HK_Central_MTR_Hong_Kong_Station_shop_Eric_Kayser_Bakery_%26_Cafe_visitors_queue_November_2026_N13P_01.jpg", "author": "Wodwo Lee SAO CH", "license": "CC0"}, {"label": "표지", "title": "File:Bread on the Table (Unsplash).jpg", "page": "https://commons.wikimedia.org/wiki/File:Bread_on_the_Table_(Unsplash).jpg", "author": "Brooke Cagle", "license": "CC0"}, {"label": "창동", "title": "File:Changdong Station Line 4 20240306 1.jpg", "page": "https://commons.wikimedia.org/wiki/File:Changdong_Station_Line_4_20240306_1.jpg", "author": "Ox1997cow", "license": "CC BY-SA 4.0"}]};
+const SC=D.scenes;
+const GAP=0.5;
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const f1=x=>x.toFixed(1), f2=x=>x.toFixed(2);
+const S=D.site, B=D.scen[0], C=D.scen[1], O=D.scen[2];
+const STEPS=['입지 선정','인테리어 컨셉','메뉴 구성','손익 시뮬레이션'];
+function topbar(act){return '<div class="top">'+STEPS.map((s,i)=>'<div class="step'+(i===act?' act':'')+'"><i>'+(i+1)+'</i>'+s+'</div>').join('<span class="arrow">›</span>')+'</div><div class="bar"></div>'}
+function srcf(t){return '<div class="src">'+esc(t)+'</div>'}
+const fmtM=x=>(x/1e8).toFixed(1);
+// ----- scene HTML -----
+const PH=D.photos||{};
+function imgp(k){const p=PH[k];if(!p||!/^https:\/\//.test(p.url||''))return '<div class="phx"></div>';return '<img class="phi" src="'+esc(p.url)+'" alt="'+esc(p.alt||'')+'" referrerpolicy="no-referrer" onerror="this.style.display=\'none\'">'}
+function crd(k){const p=PH[k];if(!p||!p.url)return '';return '<span class="cr2">사진: '+esc(p.author||'Wikimedia Commons 이용자')+' · '+esc(p.license||'')+'</span>'}
+function phb(k,style,lbl,sub,at){return '<div class="ph rv" data-at="'+at+'" style="position:absolute;'+style+'">'+imgp(k)+crd(k)+(lbl?'<div class="lbl">'+lbl+(sub?'<small>'+sub+'</small>':'')+'</div>':'')+'</div>'}
+const PLAN='<svg class="planmini" viewBox="0 0 1000 640">  <g stroke-linecap="round">  <rect class="ln" pathLength="1" style="--i:0" x="10" y="10" width="980" height="620" rx="20"/>  <path class="ln" pathLength="1" style="--i:2" d="M10 520 H110 M200 520 H320"/>  <rect class="ln" pathLength="1" style="--i:4" x="560" y="40" width="400" height="190" rx="16"/>  <path class="ln" pathLength="1" style="--i:5" d="M590 70 h120 v60 h-120 z M730 70 h70 v60 h-70 z M820 70 h110 v60 h-110 z"/>  <circle class="ln" pathLength="1" style="--i:6" cx="640" cy="180" r="22"/><circle class="ln" pathLength="1" style="--i:6" cx="740" cy="180" r="22"/><circle class="ln" pathLength="1" style="--i:6" cx="840" cy="180" r="22"/>  <rect class="ln" pathLength="1" style="--i:8" x="330" y="330" width="430" height="70" rx="12"/>  <path class="ln" pathLength="1" style="--i:9" d="M350 350 h60 M430 350 h60 M510 350 h60 M590 350 h60 M670 350 h60"/>  <rect class="ln" pathLength="1" style="--i:10" x="820" y="400" width="140" height="150" rx="14"/>  <path class="ln" pathLength="1" style="--i:11" d="M840 430 h100 M840 470 h100"/>  ${[[70,90],[150,90],[230,90],[310,90],[70,190],[150,190],[230,190],[310,190],[70,290],[150,290]].map((p,i)=>\`<circle class="ln" pathLength="1" style="--i:${12+i}" cx="${p[0]}" cy="${p[1]}" r="26"/>\`).join(\'\')}  <path class="ln" pathLength="1" style="--i:24" d="M110 520 q45 -60 90 0"/>  </g>   </svg>';
+const H={};
+H.S0=`<div class="ph" style="position:absolute;left:0;top:96px;width:1920px;height:852px;border-radius:0;box-shadow:none">${imgp('cover_bread')}${crd('cover_bread')}<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(76,29,149,.94) 0%,rgba(109,40,217,.82) 40%,rgba(109,40,217,.05) 78%)"></div></div>
+ <div style="position:absolute;left:84px;top:150px;width:880px;color:#fff">
+  <div style="font-size:24px;letter-spacing:4px;opacity:.85">CASE BRIEF</div>
+  <div style="font-size:76px;font-weight:900;line-height:1.1;margin:22px 0 22px;letter-spacing:-3px">3년 뒤,<br>베이커리를<br>어디에 낼까요?</div>
+  <div style="font-size:32px;opacity:.95;line-height:1.5">사모펀드 보유 커피·베이커리 전문점의<br>2029년 서울 신규 출점 전략</div>
+  <div style="margin-top:34px;font-size:26px;line-height:1.7"><b style="letter-spacing:3px;opacity:.75;font-size:20px">ROLE</b>&nbsp; 상권 분석 컨설턴트<br><b style="letter-spacing:3px;opacity:.75;font-size:20px">DATA</b>&nbsp; 서울열린데이터광장 · 호재 외부 리서치</div></div>
+ ${STEPS.map((x,i)=>`<div class="rv" data-at="${3.2+i*1.1}" style="position:absolute;left:${84+i*440}px;top:770px;width:410px;height:130px;background:rgba(255,255,255,.95);border-radius:24px;padding:18px 26px;box-shadow:0 18px 36px -20px rgba(0,0,0,.6)"><div style="font-size:24px;font-weight:900;color:var(--p)">0${i+1}</div><div style="font-size:36px;font-weight:900;letter-spacing:-1px;margin-top:6px">${x}</div></div>`).join('')}
+ <div class="chip rv" data-at="7.2" style="position:absolute;left:84px;top:716px;font-size:26px;background:#fff">산출물 · 2분 발표 영상</div>`;
+H.S1a=`<div class="title">입지 선정 <b>① 데이터로 후보 줄이기</b></div><div class="sub2">서울 상권 변화·유동인구·제과 매출·점포 데이터 (2024년 2분기 → 2026년 2분기)</div>
+ <div class="fun">
+  <div class="row rv" data-at="1.0"><div class="b fb" data-w="780" data-at="1.0">1,650</div><div class="t">서울 상권 전체<br><span class="lab">서울열린데이터광장 상권분석서비스</span></div></div>
+  <div class="row rv" data-at="3.4"><div class="b fb" data-w="430" data-at="3.4">149</div><div class="t">제과점 매출이 일정 규모 이상인<br>골목·발달상권</div></div>
+  <div class="row rv" data-at="6.2"><div class="b fb" data-w="210" data-at="6.2">19</div><div class="t">제과점 5곳↑ · 분기 매출 5억↑ ·<br>유동인구 증가</div></div></div>
+ <div class="card rv" data-at="8.2" style="position:absolute;left:1180px;top:430px;width:680px;padding:26px 34px;font-size:27px"><b style="color:var(--p)">이 19곳은 과거 2년의 모멘텀이에요.</b><br>종각역·천호역·홍대·합정·둔촌역 등. 3년 뒤를 보려면 호재가 따로 필요해요.</div>`+srcf('출처: 서울열린데이터광장 상권분석서비스(변화지표·유동인구·추정매출·점포), 26.2Q 기준 · 필터와 순위는 자체 계산');
+H.S1b=`<div class="title">입지 선정 <b>② 2029년 이전 호재</b></div><div class="sub2">후보 7곳을 "3년 안에 실제로 오는가"로 다시 평가했어요</div>
+ <div class="cand">
+  ${[['성수','입주 2029년 이후 예상 · 이미 포화','g',1.2],['용산','본격 직장인구는 2029년 이후','g',2.4],['마곡','호재 대부분 이미 반영','g',7.6],['청량리·왕십리','핵심 입주 완료 · GTX는 2031년 전후','g',8.4],['여의도·영등포','신안산선 2030년 이후 가능','g',9.2],['광운대·월계','3,032세대·본사 2028년 준공 목표','p',12.6]].map(r=>`<div class="r rv" data-at="${r[3]}"><span><b>${r[0]}</b></span><span class="tag ${r[2]}">${r[1]}</span></div>`).join('')}
+  <div class="r hl rv" data-at="11.0"><span><b>창동·상계</b></span><span class="tag p">아레나 2027.6 · 동북선 2027.11 목표</span></div></div>
+ <svg class="tl" viewBox="0 0 660 600">
+  <line x1="40" y1="30" x2="40" y2="570" stroke="#cfc6e6" stroke-width="4"/>
+  ${[['2027.6','서울아레나 개관 목표',110,11.6],['2027.11','동북선 개통 목표',230,13.0],['2028','광운대 역세권 준공 목표',350,14.4],['2029','출점 시점',480,16.0]].map((m,i)=>`<g class="rv" data-at="${m[3]}"><circle cx="40" cy="${m[2]}" r="14" fill="${i==3?'#6d28d9':'#8b5cf6'}"/><text x="72" y="${m[2]-6}" font-size="30" font-weight="900" fill="#1c1530">${m[0]}</text><text x="72" y="${m[2]+30}" font-size="24" fill="#6b6483">${m[1]}</text></g>`).join('')}
+ </svg>
+ <div class="tag r rv" data-at="17.0" style="position:absolute;left:1200px;top:800px;font-size:26px;padding:10px 20px">모두 목표 일정 · 동북선은 여러 차례 연기된 이력</div>`+srcf('출처: 서울시·서울시의회·언론 보도 15건(부록 참조) · 2026.11.14 기준 · 개통·준공 시기는 목표이며 변경될 수 있음');
+H.S1c=`<div class="title">입지 선정 <b>③ 최종: 창동역 상권</b></div><div class="sub2">서울아레나 인접 권역 · 상권코드 ${S.code} · 발달상권</div>
+ <div class="card rv kpi" data-at="1.0" style="left:64px;top:290px"><div class="lab">분기 유동인구</div><div class="v">${f1(S.flow26/1e4)}만</div><div class="d up">2년간 ${((S.flow26/S.flow24-1)*100).toFixed(1)}% ▲</div></div>
+ <div class="card rv kpi" data-at="2.4" style="left:510px;top:290px"><div class="lab">분기 제과 매출</div><div class="v">${fmtM(S.bak26)}억</div><div class="d up">2년간 +${((S.bak26/S.bak24-1)*100).toFixed(0)}% ▲</div></div>
+ <div class="card rv kpi" data-at="3.8" style="left:956px;top:290px"><div class="lab">상권 내 제과점</div><div class="v">${S.bak_stores}곳</div><div class="d up">공급 여백 · 건당 ${S.ticket.toFixed(0).replace(/\B(?=(\d{3})+$)/g,',')}원</div></div>
+ <div class="card rv kpi" data-at="6.6" style="left:1402px;top:290px;border-color:#fca5a5"><div class="lab">위험 ① 상권변화지표</div><div class="v dn" style="font-size:60px">${esc(S.ix)}</div><div class="d dn">서울시 분류 기준</div></div>
+ <div class="card rv kpi" data-at="8.0" style="left:956px;top:530px;border-color:#fca5a5"><div class="lab">위험 ② 분기 커피 매출</div><div class="v dn">${fmtM(S.cof26)}억</div><div class="d dn">2년간 ${((S.cof26/S.cof24-1)*100).toFixed(0)}% ▼</div></div>
+ <svg style="position:absolute;left:64px;top:530px" width="860" height="340" viewBox="0 0 860 340">
+  <text x="0" y="30" font-size="28" font-weight="800" fill="#1c1530">제과 분기 매출 (억원)</text>
+  <g class="rv" data-at="2.6"><rect x="80" y="${290-S.bak24/1e8*30}" width="170" height="${S.bak24/1e8*30}" rx="14" fill="#c4b5fd"/><text x="165" y="${280-S.bak24/1e8*30}" font-size="34" font-weight="900" text-anchor="middle">${fmtM(S.bak24)}</text><text x="165" y="326" font-size="24" text-anchor="middle" fill="#6b6483">24.2Q</text></g>
+  <g class="rv" data-at="3.4"><rect x="330" y="${290-S.bak26/1e8*30}" width="170" height="${S.bak26/1e8*30}" rx="14" fill="#6d28d9"/><text x="415" y="${280-S.bak26/1e8*30}" font-size="34" font-weight="900" text-anchor="middle">${fmtM(S.bak26)}</text><text x="415" y="326" font-size="24" text-anchor="middle" fill="#6b6483">26.2Q</text></g>
+ </svg>
+ <div class="card rv" data-at="9.2" style="position:absolute;left:1402px;top:530px;width:454px;height:210px;padding:24px 28px;font-size:26px;border-color:var(--p)"><b style="color:var(--p)">결론:</b> 호재가 늦어지면 과거 지표가 약한 상권이라, <b>일정 확인 후 계약</b>이 조건이에요.</div>`+srcf('출처: 서울열린데이터광장 상권분석서비스 26.2Q vs 24.2Q · 상권변화지표는 서울시 분류 그대로');
+H.S2=`<div class="title">인테리어 컨셉 <b>동네 오븐</b></div><div class="sub2">데이터에서 읽은 고객 → 25평(약 83㎡) 공간 설계</div><div class="mood">참고 사진 · 실제 출점 매장 아님</div>
+ ${phb('open_kitchen','left:64px;top:270px;width:900px;height:640px','오픈 베이킹 키친','제과점 2곳뿐인 상권 → 제빵 과정이 보이는 매장 (사례: 면적의 1/3)',1.5)}
+ <div class="rv" data-at="9.5" style="position:absolute;left:640px;top:312px;width:300px;background:rgba(255,255,255,.94);border-radius:18px;padding:8px 10px;box-shadow:0 12px 26px -14px rgba(0,0,0,.6);z-index:3">${PLAN}<div style="font-size:15px;color:var(--soft);text-align:center;margin-top:-2px">25평 평면 개념도</div></div>
+ ${phb('display_counter','left:990px;top:270px;width:432px;height:300px','눈높이 쇼케이스','50대 이상이 제과 매출의 51%',4.5)}
+ ${phb('seating','left:1438px;top:270px;width:418px;height:300px','편안한 좌석 18석','여성이 제과 매출의 60%',7.5)}
+ ${phb('takeaway','left:990px;top:590px;width:866px;height:320px','퇴근길·공연 전 픽업 카운터','저녁 5~9시가 제과 매출의 36%',10.5)}`+srcf('출처: 서울열린데이터광장 창동역 상권 26.2Q 연령·시간·성별 매출 비중 · 사진은 분위기 참고용(Wikimedia Commons), 평면은 개념도');
+H.S3=`<div class="title">메뉴 구성 <b>낮은 식사빵, 저녁은 선물</b></div><div class="sub2">매출 비중 목표 · 구매 1건당 약 1.1만원 (현재 상권 평균 ${S.ticket.toFixed(0).replace(/\B(?=(\d{3})+$)/g,',')}원)</div><div class="mood">참고 사진 · 실제 판매 제품 아님</div>
+ ${D.menu.map((m,i)=>`<div class="mt rv" data-at="${2.0+i*1.6}" style="position:absolute;left:${64+i*362}px;top:262px;width:340px;height:500px"><div class="ph" style="height:290px;border-radius:0;box-shadow:none">${imgp(m.k)}${crd(m.k)}<div class="pct">${m.p}%</div></div><div class="tx"><b>${m.n}</b><span>${m.d}</span></div></div>`).join('')}
+ <div class="sbar rv" data-at="10.2" style="position:absolute;left:64px;top:792px;width:1792px">${D.menu.map(m=>`<div style="width:${m.p}%;background:${m.c};${m.p<10?'color:#4c1d95':''}">${m.n.split('·')[0]} ${m.p}</div>`).join('')}</div>
+ <div class="chip rv" data-at="11.4" style="position:absolute;left:64px;top:864px;font-size:26px">낮: 식사빵·건강빵 / 저녁: 구움과자·선물 세트</div>`+srcf('출처: 창동역 상권 시간대·연령 매출 비중(서울열린데이터광장) · 비중과 객단가 목표는 컨설팅 가정 · 사진은 참고용(Wikimedia Commons)');
+H.S4a=`<div class="title">손익 시뮬레이션 <b>기본 시나리오</b></div><div class="sub2">2029년 개점 2년 차 · 25평 · 연 단위 (억원)</div>
+ <svg style="position:absolute;left:64px;top:260px" width="1792" height="700" viewBox="0 0 1792 700" id="wf"></svg>
+ <div class="card rv" data-at="9.0" style="position:absolute;left:1260px;top:290px;width:560px;padding:22px 28px;font-size:25px"><b style="color:var(--p)">매출 가정</b><br>상권 제과 ${f1(D.bak_mkt26)}억 → 2029년 ${f1(D.bak_mkt29)}억(연 +5%) × 점유율 12.5% + 음료 ${f1(D.cof_mkt26)}억 × 10%</div>`+srcf('출처: 상권 매출은 서울열린데이터광장 · 최저임금 2027년 10,700원(확정), 이후·그 밖의 비용은 가정(부록 표 참조)');
+H.S4b=`<div class="title">손익 시뮬레이션 <b>얼마나 버틸까</b></div><div class="sub2">시나리오 3종과 손익분기</div>
+ <svg style="position:absolute;left:64px;top:270px" width="1100" height="640" viewBox="0 0 1100 640" id="sc"></svg>
+ <div class="card rv kpi" data-at="3.0" style="left:1240px;top:280px;height:190px"><div class="lab">손익분기 매출 (기본)</div><div class="v">${f1(B.bep)}억</div><div class="d">안전 마진 ${(B.safety*100).toFixed(0)}%</div></div>
+ <div class="card rv kpi" data-at="5.6" style="left:1240px;top:495px;height:190px;border-color:#fca5a5"><div class="lab">보수 시나리오</div><div class="v dn">−${f1(Math.abs(C.op))}억</div><div class="d dn">적자 · 매출 ${f1(C.rev)}억</div></div>
+ <div class="card rv kpi" data-at="8.0" style="left:1240px;top:710px;height:190px"><div class="lab">투자 회수 (기본, 정상화 후)</div><div class="v">${f1(B.payback)}년</div><div class="d">초기 투자 2.0억 · 보증금 별도</div></div>`+srcf('보수: 점유율 8.5%·7%, 재료비 38% / 낙관: 16%·13%, 34%, 인력 +1명 · 모두 가정');
+H.S5=`<div class="pcard" style="position:absolute;left:64px;top:140px;width:1790px;height:360px;padding:46px 64px;overflow:hidden">${(PH.seoul_arena_site||PH.changdong)?`<div style="position:absolute;right:0;top:0;width:760px;height:360px">${imgp(PH.seoul_arena_site?'seoul_arena_site':'changdong')}<div style="position:absolute;inset:0;background:linear-gradient(90deg,#6d28d9 0%,rgba(109,40,217,.35) 45%,rgba(109,40,217,0) 100%)"></div>${crd(PH.seoul_arena_site?'seoul_arena_site':'changdong')}</div>`:''}<div style="position:relative"><div style="font-size:24px;letter-spacing:4px;opacity:.8">CONCLUSION</div><div style="font-size:60px;font-weight:900;letter-spacing:-2px;margin-top:16px;line-height:1.2">창동역 상권은 호재가 현실이 될 때<br>수익이 나는 <u style="text-decoration-color:#c4b5fd">선점형 입지</u>입니다.</div></div></div>
+ <div class="trig" style="position:absolute;left:64px;top:550px;width:1790px">
+  <div class="t rv" data-at="3.6"><b>① 서울아레나</b>2027년 6월 개관 목표 · 공정률 81%(2026.10)</div>
+  <div class="t rv" data-at="5.2"><b>② 동북선</b>2027년 11월 개통 목표 · 공정률 76.4%(2026.9)</div>
+  <div class="t rv" data-at="6.8"><b>③ 광운대 역세권</b>2028년 준공 목표 · 3,032세대·본사</div></div>
+ <div class="chip rv" data-at="8.6" style="position:absolute;left:64px;top:800px;font-size:34px;padding:10px 30px">제안: 세 일정 확인 후 계약하는 조건부 출점</div>
+ <div class="rv" data-at="10.0" style="position:absolute;left:64px;top:890px;font-size:24px;color:var(--soft)">수치의 출처와 가정은 아래 부록에 구분해 두었습니다 ↓</div>`;
+// ----- build stage -----
+const stage=$('#stage');
+let t0=0;
+SC.forEach(s=>{s.start=t0;t0+=s.dur+GAP;});
+const TOTAL=t0-GAP;
+stage.innerHTML=SC.map((s,i)=>`<div class="scene" id="sc_${s.id}">${topbar(s.step)}${H[s.id]}<div class="cap">${esc(s.text)}</div></div>`).join('');
+// waterfall
+(function(){
+  const g=$('#wf');
+  const o=B.rev-(B.cogs+B.labor+B.rent), etc=B.card+B.mkt+B.util+B.other+B.dep;
+  const items=[['매출',B.rev,'#6d28d9',0],['재료비',-B.cogs,'#c4b5fd',1],['인건비',-B.labor,'#c4b5fd',2],['임대료·관리비',-B.rent,'#c4b5fd',3],['기타 운영·감가',-etc,'#c4b5fd',4],['영업이익',B.op,'#16a34a',5]];
+  const sc=500/B.rev, base0=540, bw=210, gap=62;let cum=0,h='';
+  items.forEach((it,i)=>{
+    const v=it[1];let y,hh;
+    if(i===0){y=base0-v*sc;hh=v*sc;cum=v;}
+    else if(i===5){y=base0-v*sc;hh=v*sc;}
+    else{const top=cum,bot=cum+v;y=base0-top*sc;hh=(top-bot)*sc;cum=bot;}
+    const x=20+i*(bw+gap);
+    const at=1.0+i*1.4;
+    h+=`<g class="rv" data-at="${at}"><rect x="${x}" y="${y}" width="${bw}" height="${hh}" rx="14" fill="${it[2]}"/><text x="${x+bw/2}" y="${y-14}" font-size="38" font-weight="900" text-anchor="middle" fill="#1c1530">${v>0?'':'−'}${Math.abs(v).toFixed(2)}</text><text x="${x+bw/2}" y="596" font-size="26" font-weight="700" text-anchor="middle" fill="#6b6483">${it[0]}</text></g>`;
+  });
+  h+=`<text class="rv" data-at="9.0" x="1000" y="120" font-size="34" font-weight="900" fill="#16a34a" text-anchor="end"></text>`;
+  g.innerHTML=h+`<text class="rv" data-at="7.8" x="1580" y="${base0-B.op*sc-90}" font-size="36" font-weight="900" fill="#16a34a" text-anchor="middle">영업이익률 ${(B.opm*100).toFixed(1)}%</text>`;
+})();
+// scenarios
+(function(){
+  const g=$('#sc');const items=[['보수',C],['기본',B],['낙관',O]];
+  const sc=250/1.5, zero=330;let h=`<line x1="40" y1="${zero}" x2="1080" y2="${zero}" stroke="#cfc6e6" stroke-width="3"/>`;
+  items.forEach((it,i)=>{const v=it[1].op,x=100+i*330,hh=Math.abs(v)*sc,y=v>=0?zero-hh:zero;
+    h+=`<g class="rv" data-at="${1.0+i*1.4}"><rect x="${x}" y="${y}" width="210" height="${hh}" rx="14" fill="${v>=0?'#6d28d9':'#dc2626'}"/><text x="${x+105}" y="${v>=0?y-14:y+hh+44}" font-size="40" font-weight="900" text-anchor="middle" fill="${v>=0?'#1c1530':'#b91c1c'}">${v>=0?'+':'−'}${Math.abs(v).toFixed(2)}억</text><text x="${x+105}" y="610" font-size="30" font-weight="800" text-anchor="middle" fill="#6b6483">${it[0]}</text><text x="${x+105}" y="${zero+(v>=0?44:-12)}" font-size="22" text-anchor="middle" fill="#6b6483">매출 ${it[1].rev.toFixed(1)}억</text></g>`;});
+  g.innerHTML=h+`<text x="40" y="30" font-size="28" font-weight="800" fill="#1c1530">연 영업이익 (억원)</text>`;
+})();
+// ----- doc sections -----
+$('#summary').innerHTML=`<h2>제안 요약</h2><div class="cols">
+ <div><b>01 입지</b><ul><li>1순위 창동역 상권(서울아레나 인접), 2순위 광운대역 역세권</li><li>근거: 제과점 2곳뿐 · 분기 제과 매출 ${fmtM(S.bak26)}억(+${((S.bak26/S.bak24-1)*100).toFixed(0)}%) · 유동인구 +${((S.flow26/S.flow24-1)*100).toFixed(1)}%</li><li>위험: 상권변화지표 '${esc(S.ix)}', 커피 매출 ${((S.cof26/S.cof24-1)*100).toFixed(0)}%, 호재 일정 지연</li></ul></div>
+ <div><b>02 인테리어</b><ul><li>컨셉 '동네 오븐' · 25평 · 좌석 18석</li><li>50대 이상 매출 51% → 편안한 좌석·단차 없음</li><li>저녁 5~9시 매출 36% → 퇴근길·공연 전 픽업 카운터</li></ul></div>
+ <div><b>03 메뉴</b><ul>${D.menu.map(m=>`<li>${m.n} ${m.p}% · ${m.d}</li>`).join('')}</ul></div>
+ <div><b>04 손익(기본)</b><ul><li>매출 ${f2(B.rev)}억 · 영업이익 ${f2(B.op)}억(${(B.opm*100).toFixed(1)}%)</li><li>손익분기 ${f2(B.bep)}억 · 안전마진 ${(B.safety*100).toFixed(0)}%</li><li>보수 ${f2(C.op)}억 / 낙관 +${f2(O.op)}억</li></ul></div></div>`;
+const K=(c,t)=>`<span class="k ${c}">${t}</span>`;
+$('#appendix').innerHTML=`<h2>부록 · 근거와 가정 (확인값 / 데이터 계산 / 가정을 구분)</h2>
+<table><tr><th>구분</th><th>항목</th><th>값</th><th>근거</th></tr>
+${D.assump.map(a=>`<tr><td>${K(a[0]==='확인'?'c':a[0]==='데이터'?'d':'a',a[0])}</td><td>${esc(a[1])}</td><td>${esc(a[2])}</td><td>${esc(a[3])}</td></tr>`).join('')}</table>
+<p style="font-size:13px;color:var(--soft)">주의: 기본 시나리오 매출 ${f2(B.rev)}억원은 제과점 연평균 매출 2.58억원(농식품부 표본, 2024년)의 약 ${(B.rev/2.5843).toFixed(1)}배이고, 보수 시나리오(${f2(C.rev)}억)도 약 ${(C.rev/2.5843).toFixed(1)}배입니다. 역세권 중대형 매장과 상권 데이터 기반 가정이라 평균보다 높게 잡았고, 이 가정이 가장 큰 불확실성입니다. 제과점 단독 원가율·임대료·객단가는 공식 자료를 찾지 못해 가정으로 표시했습니다.</p>
+<div class="cols"><div><b>호재·일정 출처</b><ul>${D.srcA.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join('')}</ul></div>
+<div><b>업계 수치 출처</b><ul>${D.srcB.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join('')}</ul></div>
+<div><b>인테리어·메뉴 근거 출처</b><ul>${D.srcC.map(s=>`<li><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.title)}</a></li>`).join('')}</ul></div></div>
+<h2 style="margin-top:14px">인테리어·메뉴 근거 메모</h2><ul>${D.evid.map(e=>`<li>${esc(e)}</li>`).join('')}</ul>
+<h2 style="margin-top:14px">사진 출처 (Wikimedia Commons)</h2><ul>${(D.photoList||[]).map(p=>`<li>${esc(p.label)}: <a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.title)}</a> · ${esc(p.author)} · ${esc(p.license)}</li>`).join('')}</ul>
+<p style="font-size:13px;color:var(--soft)">데이터: 서울열린데이터광장 상권분석서비스(VwsmTrdarIxQq 상권변화지표, VwsmTrdarFlpopQq 유동인구, VwsmTrdarSelngQq 추정매출, VwsmTrdarStorQq 점포) 2024.2Q·2025.2Q·2026.2Q. 투자 권유가 아니라 상권 분석 자료입니다.</p>`;
+// ----- player -----
+const aud={};
+Object.keys(AUDIO).forEach(k=>{const a=new Audio(AUDIO[k]);a.preload='auto';aud[k]=a;});
+let gt=0,playing=false,last=0,cur=-1,capOn=true;
+function sceneAt(t){for(let i=SC.length-1;i>=0;i--)if(t>=SC[i].start)return i;return 0}
+function fmt(t){t=Math.max(0,Math.min(TOTAL,t));return Math.floor(t/60)+':'+String(Math.floor(t%60)).padStart(2,'0')}
+$('#scn').innerHTML=SC.map((s,i)=>`<button data-i="${i}">${['개요','① 후보 추리기','② 호재','③ 최종 입지','인테리어','메뉴','손익 기본','손익 시나리오','결론'][i]}</button>`).join('');
+function fit(){const p=$('#player');stage.style.transform='scale('+p.clientWidth/1920+')'}
+addEventListener('resize',fit);fit();try{new ResizeObserver(fit).observe($('#player'))}catch(e){}
+function apply(){
+  const i=sceneAt(gt),s=SC[i],lt=Math.max(0,gt-s.start);
+  if(i!==cur){
+    document.querySelectorAll('.scene').forEach(e=>e.classList.remove('on'));
+    $('#sc_'+s.id).classList.add('on');
+    document.querySelectorAll('#scn button').forEach((b,j)=>b.classList.toggle('act',j===i));
+    document.querySelectorAll('#sc_'+s.id+' .rv').forEach(e=>e.classList.remove('on'));
+    cur=i;
+  }
+  const root=$('#sc_'+s.id);
+  root.querySelectorAll('.rv').forEach(e=>{const on=lt>=parseFloat(e.dataset.at||0);e.classList.toggle('on',on)});
+  root.querySelectorAll('.fb').forEach(e=>{e.style.width=(lt>=parseFloat(e.dataset.at)?e.dataset.w+'px':'0')});
+  const bar=root.querySelector('.bar');if(bar)bar.style.width=(gt/TOTAL*100)+'%';
+  $('#seek i').style.width=(gt/TOTAL*100)+'%';$('#tm').textContent=fmt(gt)+' / '+fmt(TOTAL);
+}
+function startAudio(){
+  const i=sceneAt(gt),s=SC[i];Object.values(aud).forEach(a=>a.pause());
+  const lt=gt-s.start;if(lt<s.dur-0.05){const a=aud[s.id];try{a.currentTime=lt;a.play().catch(()=>{})}catch(e){}}
+}
+function loop(ts){
+  if(!playing)return;
+  const dt=(ts-last)/1000;last=ts;
+  const i=sceneAt(gt),s=SC[i],a=aud[s.id];
+  if(!a.paused&&!a.ended&&gt-s.start<s.dur){gt=s.start+a.currentTime;}else{gt+=dt;}
+  const j=sceneAt(gt);
+  if(j!==i||(gt-SC[j].start<0.1&&a.paused&&false)){startAudio();}
+  else if(a.paused&&gt-s.start<s.dur-0.1&&gt-s.start>=0){try{a.currentTime=gt-s.start;a.play().catch(()=>{})}catch(e){}}
+  document.documentElement.dataset.dbg=JSON.stringify({id:s.id,paused:a.paused,ct:+a.currentTime.toFixed(1),rs:a.readyState,err:a.error&&a.error.code,gt:+gt.toFixed(1)});
+  if(gt>=TOTAL){gt=TOTAL;apply();pause();return;}
+  apply();requestAnimationFrame(loop);
+}
+function play(){if(gt>=TOTAL-0.05)gt=0;playing=true;$('#ov').style.display='none';$('#bPlay').textContent='⏸ 일시정지';startAudio();last=performance.now();requestAnimationFrame(loop)}
+function pause(){playing=false;Object.values(aud).forEach(a=>a.pause());$('#bPlay').textContent='▶ 재생'}
+function seek(t){gt=Math.max(0,Math.min(TOTAL,t));cur=-1;apply();if(playing)startAudio();}
+$('#bPlay').onclick=()=>playing?pause():play();
+$('#ov').onclick=()=>{if(!playing)play()};
+$('#seek').onclick=e=>{const r=e.currentTarget.getBoundingClientRect();seek((e.clientX-r.left)/r.width*TOTAL)};
+$('#scn').onclick=e=>{const b=e.target.closest('button');if(!b)return;seek(SC[+b.dataset.i].start+0.05)};
+$('#bCap').onclick=()=>{capOn=!capOn;document.querySelectorAll('.cap').forEach(c=>c.classList.toggle('off',!capOn));$('#bCap').textContent=capOn?'자막 끄기':'자막 켜기'};
+$('#bFs').onclick=()=>{const p=$('#player');(p.requestFullscreen||p.webkitRequestFullscreen||(()=>{})).call(p)};
+document.addEventListener('fullscreenchange',()=>setTimeout(fit,100));
+document.addEventListener('keydown',e=>{if(e.code==='Space'&&e.target===document.body){e.preventDefault();playing?pause():play()}});
+apply();
+window.__p={SC,TOTAL,aud,seek,play,pause,gtv:()=>gt};
+</script>
+</body>
+</html>
